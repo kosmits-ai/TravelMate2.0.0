@@ -1,0 +1,649 @@
+openapi: 3.0.0
+info:
+  title: TravelMate
+  description: This is the API for the app TravelMate
+  contact:
+    email: ariadnipanagiotou13@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/ARIADNIPANAGIOTOU13_1/TravelMate/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: User
+  description: User account
+paths:
+  /user/{userid}/info:
+    post:
+      tags:
+      - User
+      summary: Personal Info
+      description: FR2.A registered user must be able to add his/her personal information.
+      operationId: Personal details
+      parameters:
+      - name: userid
+        in: path
+        description: Specific and unique id for each user.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                x-content-type: application/json
+        "400":
+          description: Bad Request
+        "409":
+          description: Non existing resourse
+      x-swagger-router-controller: User
+  /user/{userid}/trip:
+    post:
+      tags:
+      - User
+      summary: Create Trip
+      description: FR4. A registered user must be able to create a trip.
+      operationId: Create Trip
+      parameters:
+      - name: userid
+        in: path
+        description: Specific and unique id for each user.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatedTrip'
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreatedTrip'
+                x-content-type: application/json
+        "400":
+          description: Bad Request
+        "409":
+          description: Non existing resourse
+      x-swagger-router-controller: User
+  /user/{userid}/trip/{tripid}:
+    get:
+      tags:
+      - User
+      summary: User view trip details
+      description: A user must be able to view trip details
+      operationId: ViewTrip
+      parameters:
+      - name: userid
+        in: path
+        description: Specific and unique id for each user.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: tripid
+        in: path
+        description: Specific and unique id for each trip.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreatedTrip'
+                x-content-type: application/json
+        "400":
+          description: Unauthorized access
+      x-swagger-router-controller: User
+    put:
+      tags:
+      - User
+      summary: User edits trip
+      description: FR5. A registered user must be able to edit the details of his/her
+        own trip.
+      operationId: EditTrip
+      parameters:
+      - name: userid
+        in: path
+        description: Specific and unique id for each user.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: tripid
+        in: path
+        description: Specific and unique id for each trip.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: Start
+        in: query
+        description: Start destination which user searches
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: Destination
+        in: query
+        description: End destination which user searches
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: Date
+        in: query
+        description: Date when user searches for available trip
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successfull response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreatedTrip'
+                x-content-type: application/json
+        "404":
+          description: No content
+        "409":
+          description: Non existing resourse
+      x-swagger-router-controller: User
+    delete:
+      tags:
+      - User
+      summary: User deletes trip.
+      description: FR5. A registered user must be able to delete his/her own trip.
+      operationId: DeleteTrip
+      parameters:
+      - name: userid
+        in: path
+        description: Specific and unique id for each user.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: tripid
+        in: path
+        description: Specific and unique id for each user.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: Start
+        in: query
+        description: Start destination which user searches
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: Destination
+        in: query
+        description: End destination which user searches
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: Date
+        in: query
+        description: Date when user searches for available trip
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeleteError'
+                x-content-type: application/json
+        "400":
+          description: Unauthorized access
+      x-swagger-router-controller: User
+  /user/{userid}/searchTrip:
+    get:
+      tags:
+      - User
+      summary: Search for a trip
+      description: A registered user must be able to search for available trips
+      operationId: searchTrip
+      parameters:
+      - name: userid
+        in: path
+        description: Userid for user who searches for available trips
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: Start
+        in: query
+        description: Start destination which user searches
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: Destination
+        in: query
+        description: End destination which user searches
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: Date
+        in: query
+        description: Date when user searches for available trip
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successfull response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedTrip'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreatedTrip'
+        "400":
+          description: Unauthorized access
+        "404":
+          description: Invalid user ID
+      x-swagger-router-controller: User
+  /user/{userid}/trip/{tripid}/book:
+    post:
+      tags:
+      - User
+      summary: Book a seat in available trip
+      description: A registered user must be able to book a seat in available trip.
+      operationId: Bookseat
+      parameters:
+      - name: userid
+        in: path
+        description: ID of user who books an available seat.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: tripid
+        in: path
+        description: ID of specific available trip.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeatStatus'
+        "401":
+          description: Unauthorized access.
+        "404":
+          description: Invalid user ID.
+      x-swagger-router-controller: User
+  /user/{userid}/rate:
+    post:
+      tags:
+      - User
+      summary: User rates other user
+      description: A registered user must be able to rate other users.
+      operationId: rateUser
+      parameters:
+      - name: userid
+        in: path
+        description: ID of user who rates other user.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatingRequest'
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatingRequest'
+        "400":
+          description: Unauthorized access
+        "404":
+          description: Non existing resource
+      x-swagger-router-controller: User
+  /user/{userid}/chat:
+    get:
+      tags:
+      - User
+      summary: User chats with other user
+      description: A registered user must be able to view chat with other user
+      operationId: viewChatWithUser
+      parameters:
+      - name: userid
+        in: path
+        description: ID of user who wants to see private chat
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chat'
+        "400":
+          description: Unauthorized access
+        "404":
+          description: Bad request
+      x-swagger-router-controller: User
+    post:
+      tags:
+      - User
+      summary: User sends message to other user
+      description: A registered user must be able to chat with other user
+      operationId: chatWithUser
+      parameters:
+      - name: userid
+        in: path
+        description: ID of user who wants to chat with other user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Chat'
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chat'
+        "400":
+          description: Unauthorized access
+        "404":
+          description: Bad request
+      x-swagger-router-controller: User
+  /user/{userid}/notification:
+    get:
+      tags:
+      - User
+      summary: User gets notifications from system
+      description: System must be able to send notification to user
+      operationId: getNotification
+      parameters:
+      - name: userid
+        in: path
+        description: ID of user who receives notification
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+        "404":
+          description: Bad request
+      x-swagger-router-controller: User
+components:
+  schemas:
+    User:
+      required:
+      - LastName
+      - email
+      - firstName
+      - gender
+      - password
+      - phone
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        email:
+          type: string
+        password:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phone:
+          type: integer
+        gender:
+          type: string
+      description: "Personal user details  \n"
+      example:
+        email: random@gmail.com
+        password: dks23mc$
+        firstName: George
+        lastName: Hill
+        phone: 306948721232
+        gender: Male
+    BookingRequest:
+      required:
+      - Date
+      - Destination
+      - SeatNumber
+      - Start
+      type: object
+      properties:
+        SeatNumber:
+          type: integer
+        Start:
+          type: string
+        Destination:
+          type: string
+        Date:
+          type: string
+      description: |
+        Start: Starting point of the trip.
+        Destination: Finishing point of the trip.
+        Date: Date when trip is going to take place.
+        ID: Specific ID for a trip.
+        SeatNumber: Number of available seat which user books.
+      example:
+        Start: Lamia
+        Destination: Mesologgi
+        Date: 03-04-23
+        SeatNumber: 2
+    SeatStatus:
+      required:
+      - Available
+      - Date
+      - Destination
+      - Start
+      type: object
+      properties:
+        Available:
+          type: boolean
+        Start:
+          type: string
+        Destination:
+          type: string
+        Date:
+          type: string
+        ID:
+          type: integer
+          format: int64
+      description: |
+        Start: Starting point of the trip.
+        Destination: Finishing point of the trip.
+        Date: Date when trip is going to take place.
+        ID: Specific ID for a trip.
+        Available: Boolean variable indicates if an available seat exists or not.
+      example:
+        Start: Lamia
+        Destination: Mesologgi
+        Date: 03-04-23
+        Available: true
+        ID: 23456
+    CreatedTrip:
+      required:
+      - Destination
+      - NumberOfMates
+      - Start
+      - TripDate
+      type: object
+      properties:
+        Start:
+          type: string
+        Destination:
+          type: string
+        TripDate:
+          type: string
+        NumberofMates:
+          type: integer
+        TypeofVehicle:
+          type: string
+        TotalCost:
+          type: string
+        Tripid:
+          type: integer
+      description: "Start: Starting point of the trip.\nDestination: Finishing point\
+        \ of the trip.\nTripDate: Date when trip is going to take place.\nid: Specific\
+        \ ID for a trip with specific Start, Destination, Date\nNumberOfMates: Number\
+        \ of available seats in trip.    \nTypeOfVehicle: Type of available for trip\
+        \ vehicle\nTotalCost: Total cost for transportation from start to destination\n\
+        TripId: Unique ID for a trip\n"
+      example:
+        StartDest: Kalamata - Peiraias
+        TripDate: 03/03/23
+        NumberOfMates: 4
+        TypeOfVehicle: BMW 316i
+        TotalCost: 121.32 euros
+    RatingRequest:
+      required:
+      - rated_id
+      - rating
+      type: object
+      properties:
+        rated_id:
+          type: integer
+        rating:
+          type: integer
+      description: |
+        rated_id: User who gets rated
+        rating: 1-5 rating (5 stars: max, 1 stars: min)
+      example:
+        rated_id: 239229
+        rating: 4
+    Chat:
+      required:
+      - chat_user_id
+      - conversation
+      type: object
+      properties:
+        chat_user_id:
+          type: integer
+        conversation:
+          type: string
+      description: |
+        chat_user_id: ID of user who receives message
+        Conversation: Message which chat_user_id receives
+      example:
+        conversation: Hey. How are you?
+        chat_user_id: 394883
+    Notification:
+      required:
+      - notification_id
+      - notification_msg
+      type: object
+      properties:
+        notification_id:
+          type: integer
+        notification_msg:
+          type: string
+      description: "notification_id : ID of notification which user receives\nnotification_msg:\
+        \ Content of notification message\n  \n"
+      example:
+        notification_id: 93203
+        notification_msg: You received a new message!
+    DeleteError:
+      type: object
+      properties:
+        error:
+          type: string
+      description: "Error, trip not available"
+      example:
+        error: Successful delete. No trips found.
