@@ -65,11 +65,11 @@ exports.createTrip = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = [ {
-  "StartDest" : "Kalamata - Peiraias",
-  "TripDate" : "03/03/23",
-  "NumberOfMates" : 4,
+  "StartDest" : "Kalamata - Athens",
+  "TripDate" : "03/05/23",
+  "NumberOfMates" :3,
   "TypeOfVehicle" : "BMW 316i",
-  "TotalCost" : "121.32 euros"
+  "TotalCost" : "95.32 euros"
 }, {
   "StartDest" : "Kalamata - Peiraias",
   "TripDate" : "03/03/23",
@@ -235,11 +235,11 @@ exports.searchTrip = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
-  "StartDest" : "Kalamata - Peiraias",
-  "TripDate" : "03/03/23",
-  "NumberOfMates" : 4,
+  "StartDest" : "Kalamata - Thessaloniki",
+  "TripDate" : "03/02/23",
+  "NumberOfMates" : 2,
   "TypeOfVehicle" : "BMW 316i",
-  "TotalCost" : "121.32 euros"
+  "TotalCost" : "189.32 euros"
 };
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -284,11 +284,11 @@ exports.viewTrip = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = [ {
-  "StartDest" : "Kalamata - Peiraias",
-  "TripDate" : "03/03/23",
-  "NumberOfMates" : 4,
+  "StartDest" : "Kalamata - Larisa",
+  "TripDate" : "01/02/23",
+  "NumberOfMates" : 1,
   "TypeOfVehicle" : "BMW 316i",
-  "TotalCost" : "121.32 euros"
+  "TotalCost" : "80 euros"
 }, {
   "StartDest" : "Kalamata - Peiraias",
   "TripDate" : "03/03/23",
