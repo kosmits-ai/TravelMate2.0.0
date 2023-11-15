@@ -231,6 +231,23 @@ exports.rateUser = function() {
   });
 }
 
+exports.searchTrip = function() {
+  return new Promise(function(resolve, reject) {
+    var examples = {};
+    examples['application/json'] = {
+  "StartDest" : "Kalamata - Peiraias",
+  "TripDate" : "03/03/23",
+  "NumberOfMates" : 4,
+  "TypeOfVehicle" : "BMW 316i",
+  "TotalCost" : "121.32 euros"
+};
+    if (Object.keys(examples).length > 0) {
+      resolve(examples[Object.keys(examples)[0]]);
+    } else {
+      resolve();
+    }
+  });
+}
 
 /**
  * User chats with other user
