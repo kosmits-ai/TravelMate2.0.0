@@ -233,35 +233,6 @@ exports.rateUser = function() {
 
 
 /**
- * Search for a trip
- * A registered user must be able to search for available trips
- *
- * userid Long Userid for user who searches for available trips
- * start String Start destination which user searches (optional)
- * destination String End destination which user searches (optional)
- * date String Date when user searches for available trip (optional)
- * returns CreatedTrip
- **/
-exports.searchTrip = function() {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "StartDest" : "Kalamata - Peiraias",
-  "TripDate" : "03/03/23",
-  "NumberOfMates" : 4,
-  "TypeOfVehicle" : "BMW 316i",
-  "TotalCost" : "121.32 euros"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
-
-/**
  * User chats with other user
  * A registered user must be able to view chat with other user
  *
