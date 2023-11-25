@@ -1,0 +1,17 @@
+name: CI/CD
+on:push
+jobs:
+  ci:
+      runs-on:uuntu-latest
+        steps:
+          - name: Checkout repo
+            uses: actions/checkout@v2
+
+          -name: Setup node
+           uses: action/setup-node@v3
+           with:
+              node-version: 16
+          -name: Download deps
+           run: npm i
+          -name: Run tests
+           run: npm run test
