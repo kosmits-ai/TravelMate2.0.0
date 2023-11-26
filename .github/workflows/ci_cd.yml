@@ -2,7 +2,7 @@ name: CI/CD
 on:push
 jobs:
   ci:
-      runs-on:uuntu-latest
+      runs-on:ubuntu-latest
         steps:
           - name: Checkout repo
             uses: actions/checkout@v2
