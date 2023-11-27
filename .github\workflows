@@ -1,0 +1,40 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Download deps
+        run: npm install
+
+      - name: Run tests
+        run: npm run test
+
+  cd:
+    runs-on: ubuntu-latest
+    needs: ci
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Install railway
+        run: npm i -g @railway/cli
+
+      - name: Deploy to Railway
+        run: railway up 6f3cd2e1-7cfa-4f2e-9bc2-f26dae90b4dd
+        env:
+          RAILWAY_TOKEN: ${{ secrets.KEY }}
