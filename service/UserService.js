@@ -10,7 +10,7 @@
  * tripid Long ID of specific available trip.
  * returns SeatStatus
  **/
-exports.bookseat = function(body,userid,tripid) {
+exports.bookseat = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -37,7 +37,7 @@ exports.bookseat = function(body,userid,tripid) {
  * userid Integer ID of user who wants to chat with other user
  * returns Chat
  **/
-exports.chatWithUser = function(body,userid) {
+exports.chatWithUser = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -61,7 +61,7 @@ exports.chatWithUser = function(body,userid) {
  * userid Integer Specific and unique id for each user.
  * returns List
  **/
-exports.createTrip = function(body,userid) {
+exports.createTrip = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = [ {
@@ -97,7 +97,7 @@ exports.createTrip = function(body,userid) {
  * date String Date when user searches for available trip (optional)
  * returns List
  **/
-exports.deleteTrip = function(userid,tripid,start,destination,date) {
+exports.deleteTrip = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = [ {
@@ -125,21 +125,21 @@ exports.deleteTrip = function(userid,tripid,start,destination,date) {
  * date String Date when user searches for available trip (optional)
  * returns List
  **/
-exports.editTrip = function(userid,tripid,start,destination,date) {
+exports.editTrip = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = [ {
-  "StartDest" : "Kalamata - Peiraias",
-  "TripDate" : "03/03/23",
-  "NumberOfMates" : 4,
-  "TypeOfVehicle" : "BMW 316i",
-  "TotalCost" : "121.32 euros"
+  "StartDest" : "Athina - Thessaloniki",
+  "TripDate" : "05/05/23",
+  "NumberOfMates" : 3,
+  "TypeOfVehicle" : "Toyota AYGO",
+  "TotalCost" : "100 euros"
 }, {
-  "StartDest" : "Kalamata - Peiraias",
-  "TripDate" : "03/03/23",
-  "NumberOfMates" : 4,
-  "TypeOfVehicle" : "BMW 316i",
-  "TotalCost" : "121.32 euros"
+  "StartDest" : "Athina - ThessalonikI",
+  "TripDate" : "05/05/23",
+  "NumberOfMates" : 3,
+  "TypeOfVehicle" : "Toyota AYGO",
+  "TotalCost" : "100 euros"
 } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -157,7 +157,7 @@ exports.editTrip = function(userid,tripid,start,destination,date) {
  * userid Integer ID of user who receives notification
  * returns Notification
  **/
-exports.getNotification = function(userid) {
+exports.getNotification = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -181,7 +181,7 @@ exports.getNotification = function(userid) {
  * userid Integer Specific and unique id for each user.
  * returns List
  **/
-exports.personaldetails = function(body,userid) {
+exports.personaldetails = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = [ {
@@ -216,7 +216,7 @@ exports.personaldetails = function(body,userid) {
  * userid Integer ID of user who rates other user.
  * returns RatingRequest
  **/
-exports.rateUser = function(body,userid) {
+exports.rateUser = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -242,15 +242,15 @@ exports.rateUser = function(body,userid) {
  * date String Date when user searches for available trip (optional)
  * returns CreatedTrip
  **/
-exports.searchTrip = function(userid,start,destination,date) {
+exports.searchTrip = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
-  "StartDest" : "Kalamata - Peiraias",
-  "TripDate" : "03/03/23",
-  "NumberOfMates" : 4,
-  "TypeOfVehicle" : "BMW 316i",
-  "TotalCost" : "121.32 euros"
+  "StartDest" : "Ioannina - Arta",
+  "TripDate" : "08/08/23",
+  "NumberOfMates" : 2,
+  "TypeOfVehicle" : "Toyota Yaris",
+  "TotalCost" : "20 euros"
 };
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -268,7 +268,7 @@ exports.searchTrip = function(userid,start,destination,date) {
  * userid Integer ID of user who wants to see private chat
  * returns Chat
  **/
-exports.viewChatWithUser = function(userid) {
+exports.viewChatWithUser = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -292,21 +292,21 @@ exports.viewChatWithUser = function(userid) {
  * tripid Integer Specific and unique id for each trip.
  * returns List
  **/
-exports.viewTrip = function(userid,tripid) {
+exports.viewTrip = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = [ {
-  "StartDest" : "Kalamata - Peiraias",
-  "TripDate" : "03/03/23",
+  "StartDest" : "Patra - Athina",
+  "TripDate" : "07/07/23",
   "NumberOfMates" : 4,
-  "TypeOfVehicle" : "BMW 316i",
-  "TotalCost" : "121.32 euros"
+  "TypeOfVehicle" : "Mercedes benz",
+  "TotalCost" : "50 euros"
 }, {
-  "StartDest" : "Kalamata - Peiraias",
-  "TripDate" : "03/03/23",
+  "StartDest" : "Patra - Athina",
+  "TripDate" : "07/07/23",
   "NumberOfMates" : 4,
-  "TypeOfVehicle" : "BMW 316i",
-  "TotalCost" : "121.32 euros"
+  "TypeOfVehicle" : "Mercedes Benz",
+  "TotalCost" : "50 euros"
 } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
