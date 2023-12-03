@@ -9,6 +9,10 @@ const {
   editTrip,
   getNotification,
   searchTrip,
+  personaldetails,
+  rateUser,
+  viewChatWithUser,
+  viewTrip,
 } = require("../service/UserService.js") // Assuming DefaultService.js is at this path
 const got = require("got")
 // const { searchTrip } = require('../service/UserService.js'); // Assuming DefaultService.js is at this path
@@ -22,7 +26,7 @@ test("Async", async (t) => {
 test.before(async (t) => {
   t.context.server = http.createServer(app)
   t.context.prefixUrl =
-    "https://virtserver.swaggerhub.com/ARIADNIPANAGIOTOU13_1/TravelMate/1.0.0"
+    "https://travelmate200-production.up.railway.app"
   t.context.got = got.extend({
     prefixUrl: t.context.prefixUrl,
     responseType: "json",
@@ -68,19 +72,82 @@ test("successfully edit a trip", async (t) => {
   t.is(result[0].NumberOfMates, 3)
   t.is(result[0].TypeOfVehicle, "Toyota AYGO")
   t.is(result[0].TotalCost, "100 euros")
-  t.is(result[1].StartDest, "Athina - ThessalonikI")
+  t.is(result[1].StartDest, "Athina - Thessaloniki")
   t.is(result[1].TripDate, "05/05/23")
   t.is(result[1].NumberOfMates, 3)
   t.is(result[1].TypeOfVehicle, "Toyota AYGO")
   t.is(result[1].TotalCost, "100 euros")
 })
 
-test("successfullly retrieve a notifiacation", async (t) => {
+test("successfully retrieve a notification", async (t) => {
   const result = await getNotification()
   t.is(result.notification_id, 93203)
   t.is(result.notification_msg, "You received a new message!")
 })
 // test("")
+test("successfully book a seat", async (t) => {
+  const result = await bookseat()
+  t.is(result.Start, "Lamia")
+  t.is(result.Destination, "Mesologgi")
+  t.is(result.Date, "03-04-23")
+  t.is(result.Available, true)
+  t.is(result.ID, 23456)
+
+})
+
+test("successfully chatting with a user", async (t) => {
+  const result = await chatWithUser()
+  t.is(result.conversation, "Hey. How are you?")
+  t.is(result.chat_user_id, 394883)
+})
+
+test("successfully defined personal details", async (t) => {
+  const result = await personaldetails()
+  t.is(result.length, 2)
+  t.is(result[0].email, "random@gmail.com")
+  t.is(result[0].password, "dks23mc$")
+  t.is(result[0].firstName, "George")
+  t.is(result[0].lastName, "Hill")
+  t.is(result[0].phone, 306948721232)
+  t.is(result[0].gender, "Male")
+  t.is(result[1].email, "random@gmail.com")
+  t.is(result[1].password, "dks23mc$")
+  t.is(result[1].firstName, "George")
+  t.is(result[1].lastName, "Hill")
+  t.is(result[1].phone, 306948721232)
+  t.is(result[1].gender, "Male")
+
+
+})
+
+test("successfully rating a user", async (t) => {
+  const result = await rateUser()
+  t.is(result.rated_id, 239229)
+  t.is(result.rating , 4)
+
+}
+)
+
+test("successfully view chat", async (t) => {
+  const result = await viewChatWithUser()
+  t.is(result.conversation, "Hey. How are you?")
+  t.is(result.chat_user_id, 394883)
+})
+
+test("successfully view a trip", async (t) => {
+  const result = await viewTrip()
+  t.is(result.length, 2)
+  t.is(result[0].StartDest, "Patra - Athina")
+  t.is(result[0].TripDate, "07/07/23")
+  t.is(result[0].NumberOfMates, 4)
+  t.is(result[0].TypeOfVehicle, "Mercedes benz")
+  t.is(result[0].TotalCost, "50 euros")
+  t.is(result[1].StartDest, "Patra - Athina")
+  t.is(result[1].TripDate, "07/07/23")
+  t.is(result[1].NumberOfMates, 4)
+  t.is(result[1].TypeOfVehicle, "Mercedes Benz")
+  t.is(result[1].TotalCost, "50 euros")
+})
 
 test.after.always((t) => {
   t.context.server.close()

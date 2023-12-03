@@ -135,7 +135,7 @@ exports.editTrip = function() {
   "TypeOfVehicle" : "Toyota AYGO",
   "TotalCost" : "100 euros"
 }, {
-  "StartDest" : "Athina - ThessalonikI",
+  "StartDest" : "Athina - Thessaloniki",
   "TripDate" : "05/05/23",
   "NumberOfMates" : 3,
   "TypeOfVehicle" : "Toyota AYGO",
