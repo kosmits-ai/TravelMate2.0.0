@@ -8,9 +8,6 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
-servers:
-- url: https://virtserver.swaggerhub.com/ARIADNIPANAGIOTOU13_1/TravelMate/1.0.0
-  description: SwaggerHub API Auto Mocking
 tags:
 - name: User
   description: User account
