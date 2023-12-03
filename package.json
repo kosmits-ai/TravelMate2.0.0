@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node index.js",
-    "test": "echo Test & exit 0"
+    "test": "ava"
   },
   "keywords": [
     "swagger"
@@ -20,6 +20,8 @@
   },
   "devDependencies": {
     "ava": "^5.3.1",
-    "c8": "^8.0.1"
+    "c8": "^8.0.1",
+    "got": "^11.8.3",
+    "test-listen": "^1.1.0"
   }
 }
