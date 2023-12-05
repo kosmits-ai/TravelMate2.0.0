@@ -299,7 +299,7 @@ exports.viewTrip = function(userid,tripid) {
   "StartDest" : "Patra - Athina",
   "TripDate" : "07/07/23",
   "NumberOfMates" : 4,
-  "TypeOfVehicle" : "Mercedes benz",
+  "TypeOfVehicle" : "Mercedes Benz",
   "TotalCost" : "50 euros"
 }, {
   "StartDest" : "Patra - Athina",
