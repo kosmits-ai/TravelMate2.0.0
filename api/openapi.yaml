@@ -18,7 +18,7 @@ paths:
       - User
       summary: Personal Info
       description: FR2.A registered user must be able to add his/her personal information.
-      operationId: Personal details
+      operationId: personaldetails
       parameters:
       - name: userid
         in: path
@@ -54,7 +54,7 @@ paths:
       - User
       summary: Create Trip
       description: FR4. A registered user must be able to create a trip.
-      operationId: Create Trip
+      operationId: createTrip
       parameters:
       - name: userid
         in: path
@@ -90,7 +90,7 @@ paths:
       - User
       summary: User view trip details
       description: A user must be able to view trip details
-      operationId: ViewTrip
+      operationId: viewTrip
       parameters:
       - name: userid
         in: path
@@ -127,7 +127,7 @@ paths:
       summary: User edits trip
       description: FR5. A registered user must be able to edit the details of his/her
         own trip.
-      operationId: EditTrip
+      operationId: editTrip
       parameters:
       - name: userid
         in: path
@@ -189,7 +189,7 @@ paths:
       - User
       summary: User deletes trip.
       description: FR5. A registered user must be able to delete his/her own trip.
-      operationId: DeleteTrip
+      operationId: deleteTrip
       parameters:
       - name: userid
         in: path
@@ -306,7 +306,7 @@ paths:
       - User
       summary: Book a seat in available trip
       description: A registered user must be able to book a seat in available trip.
-      operationId: Bookseat
+      operationId: bookseat
       parameters:
       - name: userid
         in: path
