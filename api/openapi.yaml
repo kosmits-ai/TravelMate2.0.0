@@ -90,7 +90,7 @@ paths:
       - User
       summary: User view trip details
       description: A user must be able to view trip details
-      operationId: ViewTrip
+      operationId: viewTrip
       parameters:
       - name: userid
         in: path
