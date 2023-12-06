@@ -264,5 +264,91 @@ test('Add personal information', async (t) => {
   }
 });
 
+test('Rate a user', async (t) => {
+  const userid = 123;
+  const url = `user/${userid}/rate`;
 
+  const postData = {
+    rated_id: 239229,
+    rating: 4
+  };
+
+  try {
+    const { body, statusCode } = await t.context.got.post(url, {
+      json: postData,
+    });
+
+    console.log({ body, statusCode });
+
+    if (statusCode !== 200) {
+      console.error('Unexpected status code:', statusCode);
+      console.error('Response body:', body);
+    }
+
+    t.is(statusCode, 200);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error; // Re-throw the error to mark the test as failed
+  }
+});
+
+test('Create a trip', async (t) => {
+  const userid = 123;
+  const url = `user/${userid}/trip`;
+
+  const postData = {
+    Start: "Kalamata",
+    Destination: "Peiraias",
+    TripDate: "03/03/23",
+    NumberOfMates: 4,
+    TypeOfVehicle: "BMW 316i",
+    TotalCost: "121.32 euros",
+  };
+
+  try {
+    const { body, statusCode } = await t.context.got.post(url, {
+      json: postData,
+    });
+
+    console.log({ body, statusCode });
+
+    if (statusCode !== 200) {
+      console.error('Unexpected status code:', statusCode);
+      console.error('Response body:', body);
+    }
+
+    t.is(statusCode, 200);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error; // Re-throw the error to mark the test as failed
+  }
+});
+
+test('Chat with a user', async (t) => {
+  const userid = 123;
+  const url = `user/${userid}/chat`;
+
+  const postData = {
+    conversation: "Hey. How are you?",
+    chat_user_id: 394883,
+  };
+
+  try {
+    const { body, statusCode } = await t.context.got.post(url, {
+      json: postData,
+    });
+
+    console.log({ body, statusCode });
+
+    if (statusCode !== 200) {
+      console.error('Unexpected status code:', statusCode);
+      console.error('Response body:', body);
+    }
+
+    t.is(statusCode, 200);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error; // Re-throw the error to mark the test as failed
+  }
+});
 
