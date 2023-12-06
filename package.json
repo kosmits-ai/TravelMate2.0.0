@@ -6,7 +6,8 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node index.js",
-    "test": "ava"
+    "test": "ava",
+    "coverage": "nyc ava"
   },
   "keywords": [
     "swagger"
