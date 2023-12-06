@@ -208,4 +208,81 @@ test('View notification', async(t) => {
 
 })
 ;
+/*test('Book an available seat', async(t) =>{
 
+const userid = 123;
+const tripid = 456;
+
+const url = `user/${userid}/trip/${tripid}/book`;
+
+const postData = {
+  Start : "Lamia",
+  Destination : "Mesologgi",
+  Date : "03-04-23",
+  Available : true,
+  ID : 23456
+};
+
+const { body, statusCode } = await t.context.got.post(url, {
+  json: postData,
+});
+  t.is(body.Start, "Lamia");
+  t.is(statusCode, 200); 
+
+}) */
+test('Book an available seat', async (t) => {
+  const userid = 123;
+  const tripid = 456;
+  const url = `user/${userid}/trip/${tripid}/book`;
+
+  const postData = {
+    Start: 'Lamia',
+    Destination: 'Mesologgi',
+    Date: '03-04-23',
+    Available: true,
+    ID: 23456,
+    SeatNumber: 2,
+  };
+    const { body, statusCode } = await t.context.got.post(url, {
+      json: postData, 
+    });
+    console.log({ body, statusCode });
+    t.is(body.Start, "Lamia");
+    t.is(body.Destination, "Mesologgi");
+    t.is(body.Date, "03-04-23");
+    t.is(body.Available, true);
+    t.is(body.ID, 23456);
+    t.is(statusCode, 200);
+});
+
+test('Add personal information', async (t) => {
+  const userid = 123;
+  const url = `user/${userid}/info`;
+
+  const postData = {
+    email: "random@gmail.com",
+    password: "dks23mc$",
+    firstName: "George",
+    LastName: "Hill",
+    phone: 306948721232,
+    gender: "Male",
+  };
+
+  try {
+    const { body, statusCode } = await t.context.got.post(url, {
+      json: postData,
+    });
+
+    console.log({ body, statusCode });
+
+    if (statusCode !== 200) {
+      console.error('Unexpected status code:', statusCode);
+      console.error('Response body:', body);
+    }
+
+    t.is(statusCode, 200);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error; // Re-throw the error to mark the test as failed
+  }
+});
