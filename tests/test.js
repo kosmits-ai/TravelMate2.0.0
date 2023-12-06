@@ -206,31 +206,7 @@ test('View notification', async(t) => {
   t.is(body.notification_id, 93203);
   t.is(body.notification_msg, "You received a new message!");
 
-})
-;
-<<<<<<< HEAD
-/*test('Book an available seat', async(t) =>{
-
-const userid = 123;
-const tripid = 456;
-
-const url = `user/${userid}/trip/${tripid}/book`;
-
-const postData = {
-  Start : "Lamia",
-  Destination : "Mesologgi",
-  Date : "03-04-23",
-  Available : true,
-  ID : 23456
-};
-
-const { body, statusCode } = await t.context.got.post(url, {
-  json: postData,
 });
-  t.is(body.Start, "Lamia");
-  t.is(statusCode, 200); 
-
-}) */
 test('Book an available seat', async (t) => {
   const userid = 123;
   const tripid = 456;
@@ -287,6 +263,6 @@ test('Add personal information', async (t) => {
     throw error; // Re-throw the error to mark the test as failed
   }
 });
-=======
 
->>>>>>> 29d2562df79f8d5c3faf1a9324f51562d625a7d5
+
+
