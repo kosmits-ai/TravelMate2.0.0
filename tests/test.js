@@ -15,7 +15,6 @@ const {
   viewTrip,
 } = require("../service/UserService.js") // Assuming DefaultService.js is at this path
 const got = require("got")
-// const { searchTrip } = require('../service/UserService.js'); // Assuming DefaultService.js is at this path
 const app = require("../index.js")
 
 test("Async", async (t) => {
@@ -152,31 +151,61 @@ test("successfully view a trip", async (t) => {
 test.after.always((t) => {
   t.context.server.close()
 })
-// test("Search for a trip returns the expected result", async (t) => {
-//   // Call the actual API endpoint using got for
-//   const responseSearchTrip = await t.context.got.post({
-//     json: {
-//       userid: 123,
-//       start: "Ioannina",
-//       destination: "Arta",
-//       date: "08/08/23",
-//     },
-//     responseType: "json",
-//     timeout: 10000,
-//   })
+test('View Trip details', async (t) => {
+  const userid = 123;  
+  const tripid = 456;  
+  const url = `user/${userid}/trip/${tripid}`;
 
-//   // Extract the response data for searchTrip
-//   const resultSearchTrip = responseSearchTrip.body
+    const { body, statusCode } = await t.context.got(url);
+    console.log({ body, statusCode });  
+    t.is(body[0].StartDest, "Patra - Athina");
+    t.is(body[0].TripDate, "07/07/23");
+    t.is(body[0].NumberOfMates, 4);
+    t.is(body[0].TypeOfVehicle, "Mercedes Benz");
+    t.is(body[0].TotalCost, "50 euros");
+    t.is(statusCode, 200);
+  } 
+);
 
-//   // Define the expected result for searchTrip
-//   const expectedSearchTrip = {
-//     StartDest: "Ioannina - Arta",
-//     TripDate: "08/08/23",
-//     NumberOfMates: 2,
-//     TypeOfVehicle: "Toyota Yaris",
-//     TotalCost: "20 euros",
-//   }
 
-//   // Assert that the result for searchTrip matches the expected output
-//   t.deepEqual(resultSearchTrip, expectedSearchTrip)
-// })
+test('Search for a Trip', async (t) => {
+  const userid = 123; 
+  const url = `user/${userid}/searchTrip`;
+  const { body, statusCode } = await t.context.got(url);
+
+  console.log({ body, statusCode });  
+
+  t.is(body.StartDest, "Ioannina - Arta");
+  t.is(body.TripDate, "08/08/23");
+  t.is(body.NumberOfMates, 2);
+  t.is(body.TypeOfVehicle, "Toyota Yaris");
+  t.is(body.TotalCost, "20 euros");
+  t.is(statusCode, 200);
+});
+
+test('View chat with a user', async(t) => {
+  const userid = 123;
+  const url = `user/${userid}/chat`;
+  const {body, statusCode} = await t.context.got(url);
+
+  console.log({ body, statusCode });  
+
+  t.is(body.conversation, "Hey. How are you?");
+  t.is(body.chat_user_id, 394883);
+
+})
+;
+
+test('View notification', async(t) => {
+  const userid = 123;
+  const url = `user/${userid}/notification`;
+  const {body, statusCode} = await t.context.got(url);
+
+  console.log({ body, statusCode });  
+
+  t.is(body.notification_id, 93203);
+  t.is(body.notification_msg, "You received a new message!");
+
+})
+;
+
