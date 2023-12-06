@@ -208,6 +208,7 @@ test('View notification', async(t) => {
 
 })
 ;
+<<<<<<< HEAD
 /*test('Book an available seat', async(t) =>{
 
 const userid = 123;
@@ -286,3 +287,6 @@ test('Add personal information', async (t) => {
     throw error; // Re-throw the error to mark the test as failed
   }
 });
+=======
+
+>>>>>>> 29d2562df79f8d5c3faf1a9324f51562d625a7d5
