@@ -140,7 +140,7 @@ test("successfully view a trip", async (t) => {
   t.is(result[0].StartDest, "Patra - Athina")
   t.is(result[0].TripDate, "07/07/23")
   t.is(result[0].NumberOfMates, 4)
-  t.is(result[0].TypeOfVehicle, "Mercedes benz")
+  t.is(result[0].TypeOfVehicle, "Mercedes Benz")
   t.is(result[0].TotalCost, "50 euros")
   t.is(result[1].StartDest, "Patra - Athina")
   t.is(result[1].TripDate, "07/07/23")
