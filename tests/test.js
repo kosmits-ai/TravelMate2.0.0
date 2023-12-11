@@ -406,3 +406,37 @@ test('Delete a trip', async (t) => {
     throw error; // Re-throw the error to mark the test as failed
   }
 });
+
+test('Error in adding personal information', async (t) => {
+  const invalidUserId = 'hedcvf';
+  const url = `user/${invalidUserId}/info`;
+   try {
+    const response = await t.context.got.post(url, {
+      json: true,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+    console.log({"Bad request, invalid userid": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
+test('Error in creating a trip', async (t) => {
+  const invalidUserId = 'bejhr';
+  const url = `user/${invalidUserId}/trip`;
+   try {
+    const response = await t.context.got.post(url, {
+      json: true,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+    console.log({"Bad request, invalid userid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
