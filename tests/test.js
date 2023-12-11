@@ -352,3 +352,57 @@ test('Chat with a user', async (t) => {
   }
 });
 
+test('Edit a trip', async (t) => {
+  const userid = 123;
+  const tripid = 456;
+  const url = `user/${userid}/trip/${tripid}`;
+
+  const postData = {
+    Start: "Athina",
+    Destination: "Thessaloniki",
+    TripDate: "05/05/23",
+    NumberOfMates: 3,
+    TypeOfVehicle: "Toyota AYGO",
+    TotalCost: "100 euros",
+  };
+
+  try {
+    const { body, statusCode } = await t.context.got.put(url, {
+      json: postData,
+    });
+
+    console.log({ body, statusCode });
+
+    if (statusCode !== 200) {
+      console.error('Unexpected status code:', statusCode);
+      console.error('Response body:', body);
+    }
+
+    t.is(statusCode, 200);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error; // Re-throw the error to mark the test as failed
+  }
+});
+
+test('Delete a trip', async (t) => {
+  const userid = 123;
+  const tripid = 456;
+  const url = `user/${userid}/trip/${tripid}`;
+
+  try {
+    const { body, statusCode } = await t.context.got.delete(url);
+
+    console.log({ body, statusCode });
+
+    if (statusCode !== 200) {
+      console.error('Unexpected status code:', statusCode);
+      console.error('Response body:', body);
+    }
+
+    t.is(statusCode, 200);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error; // Re-throw the error to mark the test as failed
+  }
+});
