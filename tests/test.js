@@ -548,3 +548,65 @@ test('Error in booking a seat 3', async (t) => {
     throw error;
   }
 });
+
+test('Error in chatting with other user.', async (t) => {
+  const invalidUserId = 'fdbwf3vwjf';
+  const url = `user/${invalidUserId}/chat`;
+   try {
+    const response = await t.context.got.post(url, {
+      json: true,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+    console.log({"Bad request, invalid userid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
+test('Error in getting message from other user with invalid user ID.', async (t) => {
+  const invalidUserId = 'fdbwf3vwjf';
+  const url = `user/${invalidUserId}/chat`;
+
+  try {
+    const { statusCode } = await t.context.got(url, {
+      throwHttpErrors: false,
+    });
+
+    // Assert that the status code is 400
+    t.is(statusCode, 400);
+
+    // Log the response status code for debugging
+    console.log("Bad request, invalid userid");
+  } catch (error) {
+    // Log the error details including the response body
+    console.error('Error:', error);
+
+    if (error.response && error.response.body) {
+      console.log('Response body:', error.response.body);
+    }
+
+    // Rethrow the error to indicate test failure
+    throw error;
+  }
+});
+
+
+test('Error in rating other user.', async (t) => {
+  const invalidUserId = 'fdbwf3vwjf';
+  const url = `user/${invalidUserId}/rate`;
+   try {
+    const response = await t.context.got.post(url, {
+      json: true,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+    console.log({"Bad request, invalid userid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
