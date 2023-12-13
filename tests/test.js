@@ -549,7 +549,7 @@ test('Error in booking a seat 3', async (t) => {
   }
 });
 
-test('Error in chatting with other user.', async (t) => {
+test('Error in chatting with other user', async (t) => {
   const invalidUserId = 'fdbwf3vwjf';
   const url = `user/${invalidUserId}/chat`;
    try {
@@ -566,7 +566,7 @@ test('Error in chatting with other user.', async (t) => {
   }
 });
 
-test('Error in getting message from other user with invalid user ID.', async (t) => {
+test('Error in getting message from other user', async (t) => {
   const invalidUserId = 'fdbwf3vwjf';
   const url = `user/${invalidUserId}/chat`;
 
@@ -575,26 +575,22 @@ test('Error in getting message from other user with invalid user ID.', async (t)
       throwHttpErrors: false,
     });
 
-    // Assert that the status code is 400
     t.is(statusCode, 400);
 
-    // Log the response status code for debugging
-    console.log("Bad request, invalid userid");
+    console.log({"Bad request, invalid userid!": statusCode});
   } catch (error) {
-    // Log the error details including the response body
+    
     console.error('Error:', error);
 
     if (error.response && error.response.body) {
       console.log('Response body:', error.response.body);
     }
-
-    // Rethrow the error to indicate test failure
     throw error;
   }
 });
 
 
-test('Error in rating other user.', async (t) => {
+test('Error in rating other user', async (t) => {
   const invalidUserId = 'fdbwf3vwjf';
   const url = `user/${invalidUserId}/rate`;
    try {
@@ -607,6 +603,66 @@ test('Error in rating other user.', async (t) => {
     t.is(response.statusCode, 400);
   } catch (error) {
     console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
+test("Error in getting notification", async (t) => {
+const invalidUserId = 'fdbwf3vwjf';
+const url = `user/${invalidUserId}/notification`;
+try {
+  const { statusCode } = await t.context.got(url, {
+    throwHttpErrors: false,
+  });
+
+  t.is(statusCode, 400);
+
+  console.log({"Bad request, invalid userid!": statusCode});
+} catch (error) {
+  
+  console.error('Error:', error);
+
+  if (error.response && error.response.body) {
+    console.log('Response body:', error.response.body);
+  }
+  throw error;
+}
+});
+
+test('Error in deleting a trip 1', async (t) => {
+  const invalidUserId = 'fdbwf3vwjf';
+  const tripId = 234;
+  const start = "Athina";
+  const destination = "Thessaloniki";
+  const date = "05/05/23";
+  const url = `user/${invalidUserId}/trip/${tripId}`;
+   try {
+    const response = await t.context.got.delete(url, {
+      throwHttpErrors: false,
+    });
+    console.log({"Bad request, invalid userid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+});
+
+test('Error in deleting a trip 2', async (t) => {
+  const UserId = 123;
+  const invalidTripId = 'sjssjs';
+  const start = "Athina";
+  const destination = "Thessaloniki";
+  const date = "05/05/23";
+  const url = `user/${UserId}/trip/${invalidTripId}`;
+   try {
+    const response = await t.context.got.delete(url, {
+      throwHttpErrors: false,
+    });
+    console.log({"Bad request, invalid tripid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error);
     throw error;
   }
 });
