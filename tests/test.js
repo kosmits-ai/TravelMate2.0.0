@@ -495,6 +495,36 @@ test('Error in viewing a trip 3', async (t) => {
   }
 });
 
+test('Error in editing a trip', async(t) => {
+  const invalidUserId = 'djdjdjk';
+  const tripId = 123;
+  const url = `user/${invalidUserId}/trip/${tripId}`;
+  
+  
+  const updateData = {
+    Start: "Volos",
+    Destination: "Patra",
+    TripDate: "05/05/23",
+    NumberOfMates: 3,
+    TypeOfVehicle: "Toyota AYGO",
+    TotalCost: "80 euros",
+  };
+
+  try {
+    const response = await t.context.got.put(url, {
+      json: updateData,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+
+    console.log({"Bad request, invalid update data!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
 test('Error in booking a seat', async (t) => {
   const invalidUserId = 'bejhr';
   const tripId = 234;
@@ -651,18 +681,39 @@ test('Error in deleting a trip 1', async (t) => {
 test('Error in deleting a trip 2', async (t) => {
   const UserId = 123;
   const invalidTripId = 'sjssjs';
-  const start = "Athina";
-  const destination = "Thessaloniki";
-  const date = "05/05/23";
+  
   const url = `user/${UserId}/trip/${invalidTripId}`;
    try {
     const response = await t.context.got.delete(url, {
       throwHttpErrors: false,
     });
-    console.log({"Bad request, invalid tripid!": response.statusCode });
+    console.log({"Bad request, invalid userid!": response.statusCode });
     t.is(response.statusCode, 400);
   } catch (error) {
     console.error('Error:', error);
     throw error;
   }
 });
+
+test("Error in searching a Trip", async (t) => {
+  const invalidUserId = 'fdbwf3vwjf';
+  const url = `user/${invalidUserId}/searchTrip`;
+  try {
+    const { statusCode } = await t.context.got(url, {
+      throwHttpErrors: false,
+    });
+  
+    t.is(statusCode, 400);
+  
+    console.log({"Bad request, invalid userid!": statusCode});
+  } catch (error) {
+    
+    console.error('Error:', error);
+  
+    if (error.response && error.response.body) {
+      console.log('Response body:', error.response.body);
+    }
+    throw error;
+  }
+  });
+
