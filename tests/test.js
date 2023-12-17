@@ -15,7 +15,6 @@ const {
   viewTrip,
 } = require("../service/UserService.js") // Assuming DefaultService.js is at this path
 const got = require("got")
-// const { searchTrip } = require('../service/UserService.js'); // Assuming DefaultService.js is at this path
 const app = require("../index.js")
 
 test("Async", async (t) => {
@@ -152,31 +151,566 @@ test("successfully view a trip", async (t) => {
 test.after.always((t) => {
   t.context.server.close()
 })
-// test("Search for a trip returns the expected result", async (t) => {
-//   // Call the actual API endpoint using got for
-//   const responseSearchTrip = await t.context.got.post({
-//     json: {
-//       userid: 123,
-//       start: "Ioannina",
-//       destination: "Arta",
-//       date: "08/08/23",
-//     },
-//     responseType: "json",
-//     timeout: 10000,
-//   })
+test('View Trip details', async (t) => {
+  const userid = 123;  
+  const tripid = 456;  
+  const url = `user/${userid}/trip/${tripid}`;
 
-//   // Extract the response data for searchTrip
-//   const resultSearchTrip = responseSearchTrip.body
+    const { body, statusCode } = await t.context.got(url);
+    console.log({ body, statusCode });  
+    t.is(body[0].StartDest, "Patra - Athina");
+    t.is(body[0].TripDate, "07/07/23");
+    t.is(body[0].NumberOfMates, 4);
+    t.is(body[0].TypeOfVehicle, "Mercedes Benz");
+    t.is(body[0].TotalCost, "50 euros");
+    t.is(statusCode, 200);
+  } 
+);
 
-//   // Define the expected result for searchTrip
-//   const expectedSearchTrip = {
-//     StartDest: "Ioannina - Arta",
-//     TripDate: "08/08/23",
-//     NumberOfMates: 2,
-//     TypeOfVehicle: "Toyota Yaris",
-//     TotalCost: "20 euros",
-//   }
 
-//   // Assert that the result for searchTrip matches the expected output
-//   t.deepEqual(resultSearchTrip, expectedSearchTrip)
-// })
+test('Search for a Trip', async (t) => {
+  const userid = 123; 
+  const url = `user/${userid}/searchTrip`;
+  const { body, statusCode } = await t.context.got(url);
+
+  console.log({ body, statusCode });  
+
+  t.is(body.StartDest, "Ioannina - Arta");
+  t.is(body.TripDate, "08/08/23");
+  t.is(body.NumberOfMates, 2);
+  t.is(body.TypeOfVehicle, "Toyota Yaris");
+  t.is(body.TotalCost, "20 euros");
+  t.is(statusCode, 200);
+});
+
+test('View chat with a user', async(t) => {
+  const userid = 123;
+  const url = `user/${userid}/chat`;
+  const {body, statusCode} = await t.context.got(url);
+
+  console.log({ body, statusCode });  
+
+  t.is(body.conversation, "Hey. How are you?");
+  t.is(body.chat_user_id, 394883);
+
+})
+;
+
+test('View notification', async(t) => {
+  const userid = 123;
+  const url = `user/${userid}/notification`;
+  const {body, statusCode} = await t.context.got(url);
+
+  console.log({ body, statusCode });  
+
+  t.is(body.notification_id, 93203);
+  t.is(body.notification_msg, "You received a new message!");
+
+});
+test('Book an available seat', async (t) => {
+  const userid = 123;
+  const tripid = 456;
+  const url = `user/${userid}/trip/${tripid}/book`;
+
+  const postData = {
+    Start: 'Lamia',
+    Destination: 'Mesologgi',
+    Date: '03-04-23',
+    Available: true,
+    ID: 23456,
+    SeatNumber: 2,
+  };
+    const { body, statusCode } = await t.context.got.post(url, {
+      json: postData, 
+    });
+    console.log({ body, statusCode });
+    t.is(body.Start, "Lamia");
+    t.is(body.Destination, "Mesologgi");
+    t.is(body.Date, "03-04-23");
+    t.is(body.Available, true);
+    t.is(body.ID, 23456);
+    t.is(statusCode, 200);
+});
+
+test('Add personal information', async (t) => {
+  const userid = 123;
+  const url = `user/${userid}/info`;
+
+  const postData = {
+    email: "random@gmail.com",
+    password: "dks23mc$",
+    firstName: "George",
+    LastName: "Hill",
+    phone: 306948721232,
+    gender: "Male",
+  };
+
+  try {
+    const { body, statusCode } = await t.context.got.post(url, {
+      json: postData,
+    });
+
+    console.log({ body, statusCode });
+
+    if (statusCode !== 200) {
+      console.error('Unexpected status code:', statusCode);
+      console.error('Response body:', body);
+    }
+
+    t.is(statusCode, 200);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error; // Re-throw the error to mark the test as failed
+  }
+});
+
+test('Rate a user', async (t) => {
+  const userid = 123;
+  const url = `user/${userid}/rate`;
+
+  const postData = {
+    rated_id: 239229,
+    rating: 4
+  };
+
+  try {
+    const { body, statusCode } = await t.context.got.post(url, {
+      json: postData,
+    });
+
+    console.log({ body, statusCode });
+
+    if (statusCode !== 200) {
+      console.error('Unexpected status code:', statusCode);
+      console.error('Response body:', body);
+    }
+
+    t.is(statusCode, 200);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error; // Re-throw the error to mark the test as failed
+  }
+});
+
+test('Create a trip', async (t) => {
+  const userid = 123;
+  const url = `user/${userid}/trip`;
+
+  const postData = {
+    Start: "Kalamata",
+    Destination: "Peiraias",
+    TripDate: "03/03/23",
+    NumberOfMates: 4,
+    TypeOfVehicle: "BMW 316i",
+    TotalCost: "121.32 euros",
+  };
+
+  try {
+    const { body, statusCode } = await t.context.got.post(url, {
+      json: postData,
+    });
+
+    console.log({ body, statusCode });
+
+    if (statusCode !== 200) {
+      console.error('Unexpected status code:', statusCode);
+      console.error('Response body:', body);
+    }
+
+    t.is(statusCode, 200);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error; // Re-throw the error to mark the test as failed
+  }
+});
+
+test('Chat with a user', async (t) => {
+  const userid = 123;
+  const url = `user/${userid}/chat`;
+
+  const postData = {
+    conversation: "Hey. How are you?",
+    chat_user_id: 394883,
+  };
+
+  try {
+    const { body, statusCode } = await t.context.got.post(url, {
+      json: postData,
+    });
+
+    console.log({ body, statusCode });
+
+    if (statusCode !== 200) {
+      console.error('Unexpected status code:', statusCode);
+      console.error('Response body:', body);
+    }
+
+    t.is(statusCode, 200);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error; // Re-throw the error to mark the test as failed
+  }
+});
+
+test('Edit a trip', async (t) => {
+  const userid = 123;
+  const tripid = 456;
+  const url = `user/${userid}/trip/${tripid}`;
+
+  const postData = {
+    Start: "Athina",
+    Destination: "Thessaloniki",
+    TripDate: "05/05/23",
+    NumberOfMates: 3,
+    TypeOfVehicle: "Toyota AYGO",
+    TotalCost: "100 euros",
+  };
+
+  try {
+    const { body, statusCode } = await t.context.got.put(url, {
+      json: postData,
+    });
+
+    console.log({ body, statusCode });
+
+    if (statusCode !== 200) {
+      console.error('Unexpected status code:', statusCode);
+      console.error('Response body:', body);
+    }
+
+    t.is(statusCode, 200);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error; // Re-throw the error to mark the test as failed
+  }
+});
+
+test('Delete a trip', async (t) => {
+  const userid = 123;
+  const tripid = 456;
+  const url = `user/${userid}/trip/${tripid}`;
+
+  try {
+    const { body, statusCode } = await t.context.got.delete(url);
+
+    console.log({ body, statusCode });
+
+    if (statusCode !== 200) {
+      console.error('Unexpected status code:', statusCode);
+      console.error('Response body:', body);
+    }
+
+    t.is(statusCode, 200);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error; // Re-throw the error to mark the test as failed
+  }
+});
+
+test('Error in adding personal information', async (t) => {
+  const invalidUserId = 'hedcvf';
+  const url = `user/${invalidUserId}/info`;
+   try {
+    const response = await t.context.got.post(url, {
+      json: true,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+    console.log({"Bad request, invalid userid": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
+test('Error in creating a trip', async (t) => {
+  const invalidUserId = 'bejhr';
+  const url = `user/${invalidUserId}/trip`;
+   try {
+    const response = await t.context.got.post(url, {
+      json: true,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+    console.log({"Bad request, invalid userid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
+test('Error in viewing a trip', async (t) => {
+  const invalidUserId = 'bejhr';
+  const tripId = 234;
+  const url = `user/${invalidUserId}/trip/${tripId}`;
+   try {
+    const response = await t.context.got.post(url, {
+      json: true,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+    console.log({"Bad request, invalid userid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
+test('Error in viewing a trip 2', async (t) => {
+  const invalidUserId = 'bejhr';
+  const invalidTripId = 'sjssjs';
+  const url = `user/${invalidUserId}/trip/${invalidTripId}`;
+   try {
+    const response = await t.context.got.post(url, {
+      json: true,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+    console.log({"Bad request, invalid userid and tripid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
+test('Error in viewing a trip 3', async (t) => {
+  const UserId = 123;
+  const invalidTripId = 'sjssjs';
+  const url = `user/${UserId}/trip/${invalidTripId}`;
+   try {
+    const response = await t.context.got.post(url, {
+      json: true,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+    console.log({"Bad request, invalid tripid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
+test('Error in editing a trip', async(t) => {
+  const invalidUserId = 'djdjdjk';
+  const tripId = 123;
+  const url = `user/${invalidUserId}/trip/${tripId}`;
+  
+  
+  const updateData = {
+    Start: "Volos",
+    Destination: "Patra",
+    TripDate: "05/05/23",
+    NumberOfMates: 3,
+    TypeOfVehicle: "Toyota AYGO",
+    TotalCost: "80 euros",
+  };
+
+  try {
+    const response = await t.context.got.put(url, {
+      json: updateData,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+
+    console.log({"Bad request, invalid update data!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
+test('Error in booking a seat', async (t) => {
+  const invalidUserId = 'bejhr';
+  const tripId = 234;
+  const url = `user/${invalidUserId}/trip/${tripId}/book`;
+   try {
+    const response = await t.context.got.post(url, {
+      json: true,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+    console.log({"Bad request, invalid userid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
+test('Error in booking a seat 2', async (t) => {
+  const UserId = 123;
+  const invalidTripId = 'sjssjs';
+  const url = `user/${UserId}/trip/${invalidTripId}/book`;
+   try {
+    const response = await t.context.got.post(url, {
+      json: true,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+    console.log({"Bad request, invalid tripid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
+test('Error in booking a seat 3', async (t) => {
+  const invalidUserId = 'fdbwf3vwjf';
+  const invalidtripId = 'snccse';
+  const url = `user/${invalidUserId}/trip/${invalidtripId}/book`;
+   try {
+    const response = await t.context.got.post(url, {
+      json: true,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+    console.log({"Bad request, invalid userid and tripid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
+test('Error in chatting with other user', async (t) => {
+  const invalidUserId = 'fdbwf3vwjf';
+  const url = `user/${invalidUserId}/chat`;
+   try {
+    const response = await t.context.got.post(url, {
+      json: true,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+    console.log({"Bad request, invalid userid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
+test('Error in getting message from other user', async (t) => {
+  const invalidUserId = 'fdbwf3vwjf';
+  const url = `user/${invalidUserId}/chat`;
+
+  try {
+    const { statusCode } = await t.context.got(url, {
+      throwHttpErrors: false,
+    });
+
+    t.is(statusCode, 400);
+
+    console.log({"Bad request, invalid userid!": statusCode});
+  } catch (error) {
+    
+    console.error('Error:', error);
+
+    if (error.response && error.response.body) {
+      console.log('Response body:', error.response.body);
+    }
+    throw error;
+  }
+});
+
+
+test('Error in rating other user', async (t) => {
+  const invalidUserId = 'fdbwf3vwjf';
+  const url = `user/${invalidUserId}/rate`;
+   try {
+    const response = await t.context.got.post(url, {
+      json: true,
+      responseType: 'json',
+      throwHttpErrors: false, // Don't throw errors on 4xx/5xx status codes
+    });
+    console.log({"Bad request, invalid userid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.body : error.message);
+    throw error;
+  }
+});
+
+test("Error in getting notification", async (t) => {
+const invalidUserId = 'fdbwf3vwjf';
+const url = `user/${invalidUserId}/notification`;
+try {
+  const { statusCode } = await t.context.got(url, {
+    throwHttpErrors: false,
+  });
+
+  t.is(statusCode, 400);
+
+  console.log({"Bad request, invalid userid!": statusCode});
+} catch (error) {
+  
+  console.error('Error:', error);
+
+  if (error.response && error.response.body) {
+    console.log('Response body:', error.response.body);
+  }
+  throw error;
+}
+});
+
+test('Error in deleting a trip 1', async (t) => {
+  const invalidUserId = 'fdbwf3vwjf';
+  const tripId = 234;
+  const url = `user/${invalidUserId}/trip/${tripId}`;
+   try {
+    const response = await t.context.got.delete(url, {
+      throwHttpErrors: false,
+    });
+    console.log({"Bad request, invalid userid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+});
+
+test('Error in deleting a trip 2', async (t) => {
+  const UserId = 123;
+  const invalidTripId = 'sjssjs';
+  
+  const url = `user/${UserId}/trip/${invalidTripId}`;
+   try {
+    const response = await t.context.got.delete(url, {
+      throwHttpErrors: false,
+    });
+    console.log({"Bad request, invalid userid!": response.statusCode });
+    t.is(response.statusCode, 400);
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+});
+
+test("Error in searching a Trip", async (t) => {
+  const invalidUserId = 'fdbwf3vwjf';
+  const url = `user/${invalidUserId}/searchTrip`;
+  try {
+    const { statusCode } = await t.context.got(url, {
+      throwHttpErrors: false,
+    });
+  
+    t.is(statusCode, 400);
+  
+    console.log({"Bad request, invalid userid!": statusCode});
+  } catch (error) {
+    
+    console.error('Error:', error);
+  
+    if (error.response && error.response.body) {
+      console.log('Response body:', error.response.body);
+    }
+    throw error;
+  }
+  });
+
