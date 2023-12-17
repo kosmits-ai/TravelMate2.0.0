@@ -662,9 +662,6 @@ try {
 test('Error in deleting a trip 1', async (t) => {
   const invalidUserId = 'fdbwf3vwjf';
   const tripId = 234;
-  const start = "Athina";
-  const destination = "Thessaloniki";
-  const date = "05/05/23";
   const url = `user/${invalidUserId}/trip/${tripId}`;
    try {
     const response = await t.context.got.delete(url, {
