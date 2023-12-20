@@ -32,7 +32,7 @@ test.before(async (t) => {
   })
 })
 
-test("successfully search for a trip", async (t) => {
+test("successfully searching for a trip", async (t) => {
   const result = await searchTrip()
   t.is(result.StartDest, "Ioannina - Arta")
   t.is(result.TripDate, "08/08/23")
@@ -41,7 +41,7 @@ test("successfully search for a trip", async (t) => {
   t.is(result.TotalCost, "20 euros")
 })
 
-test("successfully create a trip", async (t) => {
+test("successfully creating a trip", async (t) => {
   const result = await createTrip()
   t.is(result.length, 2)
   t.is(result[0].StartDest, "Kalamata - Peiraias")
@@ -56,14 +56,14 @@ test("successfully create a trip", async (t) => {
   t.is(result[1].TotalCost, "121.32 euros")
 })
 
-test("successfully delete a trip", async (t) => {
+test("successfully deleting a trip", async (t) => {
   const result = await deleteTrip()
   t.is(result.length, 2)
   t.is(result[0].error, "Successful delete. No trips found.")
   t.is(result[1].error, "Successful delete. No trips found.")
 })
 
-test("successfully edit a trip", async (t) => {
+test("successfully editing a trip", async (t) => {
   const result = await editTrip()
   t.is(result.length, 2)
   t.is(result[0].StartDest, "Athina - Thessaloniki")
@@ -78,13 +78,13 @@ test("successfully edit a trip", async (t) => {
   t.is(result[1].TotalCost, "100 euros")
 })
 
-test("successfully retrieve a notification", async (t) => {
+test("successfully retrieving a notification", async (t) => {
   const result = await getNotification()
   t.is(result.notification_id, 93203)
   t.is(result.notification_msg, "You received a new message!")
 })
 // test("")
-test("successfully book a seat", async (t) => {
+test("successfully booking a seat", async (t) => {
   const result = await bookseat()
   t.is(result.Start, "Lamia")
   t.is(result.Destination, "Mesologgi")
@@ -100,7 +100,7 @@ test("successfully chatting with a user", async (t) => {
   t.is(result.chat_user_id, 394883)
 })
 
-test("successfully defined personal details", async (t) => {
+test("successfully defining personal details", async (t) => {
   const result = await personaldetails()
   t.is(result.length, 2)
   t.is(result[0].email, "random@gmail.com")
@@ -127,13 +127,13 @@ test("successfully rating a user", async (t) => {
 }
 )
 
-test("successfully view chat", async (t) => {
+test("successfully viewing chat", async (t) => {
   const result = await viewChatWithUser()
   t.is(result.conversation, "Hey. How are you?")
   t.is(result.chat_user_id, 394883)
 })
 
-test("successfully view a trip", async (t) => {
+test("successfully viewing a trip", async (t) => {
   const result = await viewTrip()
   t.is(result.length, 2)
   t.is(result[0].StartDest, "Patra - Athina")
@@ -441,7 +441,7 @@ test('Error in creating a trip', async (t) => {
   }
 });
 
-test('Error in viewing a trip', async (t) => {
+test('Error in viewing a trip with invalidUserId', async (t) => {
   const invalidUserId = 'bejhr';
   const tripId = 234;
   const url = `user/${invalidUserId}/trip/${tripId}`;
@@ -459,7 +459,7 @@ test('Error in viewing a trip', async (t) => {
   }
 });
 
-test('Error in viewing a trip 2', async (t) => {
+test('Error in viewing a trip with invalidUserId and invalidTripId', async (t) => {
   const invalidUserId = 'bejhr';
   const invalidTripId = 'sjssjs';
   const url = `user/${invalidUserId}/trip/${invalidTripId}`;
@@ -477,7 +477,7 @@ test('Error in viewing a trip 2', async (t) => {
   }
 });
 
-test('Error in viewing a trip 3', async (t) => {
+test('Error in viewing a trip with invalidTripId', async (t) => {
   const UserId = 123;
   const invalidTripId = 'sjssjs';
   const url = `user/${UserId}/trip/${invalidTripId}`;
@@ -525,7 +525,7 @@ test('Error in editing a trip', async(t) => {
   }
 });
 
-test('Error in booking a seat', async (t) => {
+test('Error in booking a seat with invalidUserId', async (t) => {
   const invalidUserId = 'bejhr';
   const tripId = 234;
   const url = `user/${invalidUserId}/trip/${tripId}/book`;
@@ -543,7 +543,7 @@ test('Error in booking a seat', async (t) => {
   }
 });
 
-test('Error in booking a seat 2', async (t) => {
+test('Error in booking a seat with invalidTripId', async (t) => {
   const UserId = 123;
   const invalidTripId = 'sjssjs';
   const url = `user/${UserId}/trip/${invalidTripId}/book`;
@@ -561,10 +561,10 @@ test('Error in booking a seat 2', async (t) => {
   }
 });
 
-test('Error in booking a seat 3', async (t) => {
+test('Error in booking a seat with invalidUserId and invalidTripId', async (t) => {
   const invalidUserId = 'fdbwf3vwjf';
-  const invalidtripId = 'snccse';
-  const url = `user/${invalidUserId}/trip/${invalidtripId}/book`;
+  const invalidTripId = 'snccse';
+  const url = `user/${invalidUserId}/trip/${invalidTripId}/book`;
    try {
     const response = await t.context.got.post(url, {
       json: true,
@@ -659,7 +659,7 @@ try {
 }
 });
 
-test('Error in deleting a trip 1', async (t) => {
+test('Error in deleting a trip with invalidUserId', async (t) => {
   const invalidUserId = 'fdbwf3vwjf';
   const tripId = 234;
   const url = `user/${invalidUserId}/trip/${tripId}`;
@@ -675,7 +675,7 @@ test('Error in deleting a trip 1', async (t) => {
   }
 });
 
-test('Error in deleting a trip 2', async (t) => {
+test('Error in deleting a trip with invalidTripId', async (t) => {
   const UserId = 123;
   const invalidTripId = 'sjssjs';
   
