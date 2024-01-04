@@ -11,7 +11,7 @@
  * returns SeatStatus
  **/
 exports.bookseat = function() {
-  return new Promise(function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
   "Start" : "Lamia",
@@ -38,7 +38,7 @@ exports.bookseat = function() {
  * returns Chat
  **/
 exports.chatWithUser = function() {
-  return new Promise(function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
   "conversation" : "Hey. How are you?",
@@ -62,7 +62,7 @@ exports.chatWithUser = function() {
  * returns List
  **/
 exports.createTrip = function() {
-  return new Promise(function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = [ {
   "StartDest" : "Kalamata - Athens",
@@ -98,7 +98,7 @@ exports.createTrip = function() {
  * returns List
  **/
 exports.deleteTrip = function() {
-  return new Promise(function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = [ {
   "error" : "Successful delete. No trips found."
@@ -126,7 +126,7 @@ exports.deleteTrip = function() {
  * returns List
  **/
 exports.editTrip = function() {
-  return new Promise(function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = [ {
   "StartDest" : "Kalamata - Peiraias",
@@ -158,7 +158,7 @@ exports.editTrip = function() {
  * returns Notification
  **/
 exports.getNotification = function() {
-  return new Promise(function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
   "notification_id" : 93203,
@@ -182,7 +182,7 @@ exports.getNotification = function() {
  * returns List
  **/
 exports.personaldetails = function() {
-  return new Promise(function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = [ {
   "email" : "random@gmail.com",
@@ -217,7 +217,7 @@ exports.personaldetails = function() {
  * returns RatingRequest
  **/
 exports.rateUser = function() {
-  return new Promise(function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
   "rated_id" : 239229,
@@ -232,7 +232,7 @@ exports.rateUser = function() {
 }
 
 exports.searchTrip = function() {
-  return new Promise(function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
   "StartDest" : "Kalamata - Thessaloniki",
@@ -257,7 +257,7 @@ exports.searchTrip = function() {
  * returns Chat
  **/
 exports.viewChatWithUser = function() {
-  return new Promise(function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
   "conversation" : "Hey. How are you?",
@@ -281,7 +281,7 @@ exports.viewChatWithUser = function() {
  * returns List
  **/
 exports.viewTrip = function() {
-  return new Promise(function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = [ {
   "StartDest" : "Kalamata - Larisa",
