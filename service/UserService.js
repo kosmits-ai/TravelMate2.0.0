@@ -129,17 +129,17 @@ exports.editTrip = function() {
   return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = [ {
-  "StartDest" : "Kalamata - Peiraias",
-  "TripDate" : "03/03/23",
-  "NumberOfMates" : 4,
-  "TypeOfVehicle" : "BMW 316i",
-  "TotalCost" : "121.32 euros"
+  "StartDest" : "Athina - Thessaloniki",
+  "TripDate" : "05/05/23",
+  "NumberOfMates" : 3,
+  "TypeOfVehicle" : "Toyota AYGO",
+  "TotalCost" : "100 euros"
 }, {
-  "StartDest" : "Kalamata - Peiraias",
-  "TripDate" : "03/03/23",
-  "NumberOfMates" : 4,
-  "TypeOfVehicle" : "BMW 316i",
-  "TotalCost" : "121.32 euros"
+  "StartDest" : "Athina - Thessaloniki",
+  "TripDate" : "05/05/23",
+  "NumberOfMates" : 3,
+  "TypeOfVehicle" : "Toyota AYGO",
+  "TotalCost" : "100 euros"
 } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -235,11 +235,19 @@ exports.searchTrip = function() {
   return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
+<<<<<<< HEAD
   "StartDest" : "Kalamata - Thessaloniki",
   "TripDate" : "03/02/23",
   "NumberOfMates" : 2,
   "TypeOfVehicle" : "BMW 316i",
   "TotalCost" : "189.32 euros"
+=======
+  "StartDest" : "Ioannina - Arta",
+  "TripDate" : "08/08/23",
+  "NumberOfMates" : 2,
+  "TypeOfVehicle" : "Toyota Yaris",
+  "TotalCost" : "20 euros"
+>>>>>>> a12153dbd3e5f9d545a0d04ea72e0f37bedd1737
 };
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -284,17 +292,25 @@ exports.viewTrip = function() {
   return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = [ {
+<<<<<<< HEAD
   "StartDest" : "Kalamata - Larisa",
   "TripDate" : "01/02/23",
   "NumberOfMates" : 1,
   "TypeOfVehicle" : "BMW 316i",
   "TotalCost" : "80 euros"
-}, {
-  "StartDest" : "Kalamata - Peiraias",
-  "TripDate" : "03/03/23",
+=======
+  "StartDest" : "Patra - Athina",
+  "TripDate" : "07/07/23",
   "NumberOfMates" : 4,
-  "TypeOfVehicle" : "BMW 316i",
-  "TotalCost" : "121.32 euros"
+  "TypeOfVehicle" : "Mercedes Benz",
+  "TotalCost" : "50 euros"
+>>>>>>> a12153dbd3e5f9d545a0d04ea72e0f37bedd1737
+}, {
+  "StartDest" : "Patra - Athina",
+  "TripDate" : "07/07/23",
+  "NumberOfMates" : 4,
+  "TypeOfVehicle" : "Mercedes Benz",
+  "TotalCost" : "50 euros"
 } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);

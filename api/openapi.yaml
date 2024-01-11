@@ -8,9 +8,6 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
-servers:
-- url: https://virtserver.swaggerhub.com/ARIADNIPANAGIOTOU13_1/TravelMate/1.0.0
-  description: SwaggerHub API Auto Mocking
 tags:
 - name: User
   description: User account
@@ -21,7 +18,7 @@ paths:
       - User
       summary: Personal Info
       description: FR2.A registered user must be able to add his/her personal information.
-      operationId: Personal details
+      operationId: personaldetails
       parameters:
       - name: userid
         in: path
@@ -48,8 +45,6 @@ paths:
                 x-content-type: application/json
         "400":
           description: Bad Request
-        "409":
-          description: Non existing resourse
       x-swagger-router-controller: User
   /user/{userid}/trip:
     post:
@@ -57,7 +52,7 @@ paths:
       - User
       summary: Create Trip
       description: FR4. A registered user must be able to create a trip.
-      operationId: Create Trip
+      operationId: createTrip
       parameters:
       - name: userid
         in: path
@@ -84,8 +79,6 @@ paths:
                 x-content-type: application/json
         "400":
           description: Bad Request
-        "409":
-          description: Non existing resourse
       x-swagger-router-controller: User
   /user/{userid}/trip/{tripid}:
     get:
@@ -93,7 +86,7 @@ paths:
       - User
       summary: User view trip details
       description: A user must be able to view trip details
-      operationId: ViewTrip
+      operationId: viewTrip
       parameters:
       - name: userid
         in: path
@@ -122,7 +115,7 @@ paths:
                   $ref: '#/components/schemas/CreatedTrip'
                 x-content-type: application/json
         "400":
-          description: Unauthorized access
+          description: Bad request
       x-swagger-router-controller: User
     put:
       tags:
@@ -130,7 +123,7 @@ paths:
       summary: User edits trip
       description: FR5. A registered user must be able to edit the details of his/her
         own trip.
-      operationId: EditTrip
+      operationId: editTrip
       parameters:
       - name: userid
         in: path
@@ -182,17 +175,16 @@ paths:
                 items:
                   $ref: '#/components/schemas/CreatedTrip'
                 x-content-type: application/json
-        "404":
-          description: No content
-        "409":
-          description: Non existing resourse
+        "400":
+          description: Bad request
+        
       x-swagger-router-controller: User
     delete:
       tags:
       - User
       summary: User deletes trip.
       description: FR5. A registered user must be able to delete his/her own trip.
-      operationId: DeleteTrip
+      operationId: deleteTrip
       parameters:
       - name: userid
         in: path
@@ -245,7 +237,7 @@ paths:
                   $ref: '#/components/schemas/DeleteError'
                 x-content-type: application/json
         "400":
-          description: Unauthorized access
+          description: Bad request
       x-swagger-router-controller: User
   /user/{userid}/searchTrip:
     get:
@@ -299,9 +291,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/CreatedTrip'
         "400":
-          description: Unauthorized access
-        "404":
-          description: Invalid user ID
+          description: Bad request
+        
       x-swagger-router-controller: User
   /user/{userid}/trip/{tripid}/book:
     post:
@@ -309,7 +300,7 @@ paths:
       - User
       summary: Book a seat in available trip
       description: A registered user must be able to book a seat in available trip.
-      operationId: Bookseat
+      operationId: bookseat
       parameters:
       - name: userid
         in: path
@@ -341,10 +332,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SeatStatus'
-        "401":
-          description: Unauthorized access.
-        "404":
-          description: Invalid user ID.
+        "400":
+          description: Bad request.
+        
       x-swagger-router-controller: User
   /user/{userid}/rate:
     post:
@@ -375,9 +365,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/RatingRequest'
         "400":
-          description: Unauthorized access
-        "404":
-          description: Non existing resource
+          description: Bad request
+        
       x-swagger-router-controller: User
   /user/{userid}/chat:
     get:
@@ -403,8 +392,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Chat'
         "400":
-          description: Unauthorized access
-        "404":
           description: Bad request
       x-swagger-router-controller: User
     post:
@@ -435,8 +422,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Chat'
         "400":
-          description: Unauthorized access
-        "404":
           description: Bad request
       x-swagger-router-controller: User
   /user/{userid}/notification:
@@ -462,7 +447,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Notification'
-        "404":
+        "400":
           description: Bad request
       x-swagger-router-controller: User
 components:

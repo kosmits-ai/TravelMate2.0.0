@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "prestart": "npm install",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "ava",
+    "coverage": "nyc ava"
   },
   "keywords": [
     "swagger"
@@ -19,6 +21,12 @@
   },
   "devDependencies": {
     "ava": "^5.3.1",
+<<<<<<< HEAD
     "c8": "^8.0.1"
+=======
+    "c8": "^8.0.1",
+    "got": "^11.8.3",
+    "test-listen": "^1.1.0"
+>>>>>>> a12153dbd3e5f9d545a0d04ea72e0f37bedd1737
   }
 }

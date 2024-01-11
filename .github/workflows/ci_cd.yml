@@ -1,23 +1,38 @@
 name: CI/CD
 
+<<<<<<< HEAD
 on:
    push:
     branches:
       - main
+=======
+on: push
+>>>>>>> a12153dbd3e5f9d545a0d04ea72e0f37bedd1737
 
 jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
+<<<<<<< HEAD
       - name: Checkout repo
         uses: actions/checkout@v2
 
       - name: Setup node
+=======
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+>>>>>>> a12153dbd3e5f9d545a0d04ea72e0f37bedd1737
         uses: actions/setup-node@v3
         with:
           node-version: 16
 
+<<<<<<< HEAD
       - name: Download deps
+=======
+      - name: Install dependencies
+>>>>>>> a12153dbd3e5f9d545a0d04ea72e0f37bedd1737
         run: npm install
 
       - name: Run tests
@@ -28,6 +43,7 @@ jobs:
     needs: ci
     if: github.ref == 'refs/heads/main'
     steps:
+<<<<<<< HEAD
       - name: Checkout repo
         uses: actions/checkout@v2
 
@@ -36,5 +52,15 @@ jobs:
 
       - name: Deploy to Railway
         run: railway up 6f3cd2e1-7cfa-4f2e-9bc2-f26dae90b4dd
+=======
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Railway
+        run: npm i -g @railway/cli
+
+      - name: Deploy to Railway
+        run: railway up --service ${{ secrets.RAILWAY_SERVICE }}
+>>>>>>> a12153dbd3e5f9d545a0d04ea72e0f37bedd1737
         env:
           RAILWAY_TOKEN: ${{ secrets.KEY }}
