@@ -10,8 +10,8 @@
  * tripid Long ID of specific available trip.
  * returns SeatStatus
  **/
-exports.bookseat = function(body,userid,tripid) {
-  return new Promise(function(resolve, reject) {
+exports.bookseat = function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
   "Start" : "Lamia",
@@ -37,8 +37,8 @@ exports.bookseat = function(body,userid,tripid) {
  * userid Integer ID of user who wants to chat with other user
  * returns Chat
  **/
-exports.chatWithUser = function(body,userid) {
-  return new Promise(function(resolve, reject) {
+exports.chatWithUser = function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
   "conversation" : "Hey. How are you?",
@@ -61,8 +61,8 @@ exports.chatWithUser = function(body,userid) {
  * userid Integer Specific and unique id for each user.
  * returns List
  **/
-exports.createTrip = function(body,userid) {
-  return new Promise(function(resolve, reject) {
+exports.createTrip = function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = [ {
   "StartDest" : "Kalamata - Peiraias",
@@ -97,8 +97,8 @@ exports.createTrip = function(body,userid) {
  * date String Date when user searches for available trip (optional)
  * returns List
  **/
-exports.deleteTrip = function(userid,tripid,start,destination,date) {
-  return new Promise(function(resolve, reject) {
+exports.deleteTrip = function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = [ {
   "error" : "Successful delete. No trips found."
@@ -125,8 +125,8 @@ exports.deleteTrip = function(userid,tripid,start,destination,date) {
  * date String Date when user searches for available trip (optional)
  * returns List
  **/
-exports.editTrip = function(userid,tripid,start,destination,date) {
-  return new Promise(function(resolve, reject) {
+exports.editTrip = function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = [ {
   "StartDest" : "Athina - Thessaloniki",
@@ -157,8 +157,8 @@ exports.editTrip = function(userid,tripid,start,destination,date) {
  * userid Integer ID of user who receives notification
  * returns Notification
  **/
-exports.getNotification = function(userid) {
-  return new Promise(function(resolve, reject) {
+exports.getNotification = function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
   "notification_id" : 93203,
@@ -181,8 +181,8 @@ exports.getNotification = function(userid) {
  * userid Integer Specific and unique id for each user.
  * returns List
  **/
-exports.personaldetails = function(body,userid) {
-  return new Promise(function(resolve, reject) {
+exports.personaldetails = function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = [ {
   "email" : "random@gmail.com",
@@ -216,8 +216,8 @@ exports.personaldetails = function(body,userid) {
  * userid Integer ID of user who rates other user.
  * returns RatingRequest
  **/
-exports.rateUser = function(body,userid) {
-  return new Promise(function(resolve, reject) {
+exports.rateUser = function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
   "rated_id" : 239229,
@@ -242,8 +242,8 @@ exports.rateUser = function(body,userid) {
  * date String Date when user searches for available trip (optional)
  * returns CreatedTrip
  **/
-exports.searchTrip = function(userid,start,destination,date) {
-  return new Promise(function(resolve, reject) {
+exports.searchTrip = function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
   "StartDest" : "Ioannina - Arta",
@@ -268,8 +268,8 @@ exports.searchTrip = function(userid,start,destination,date) {
  * userid Integer ID of user who wants to see private chat
  * returns Chat
  **/
-exports.viewChatWithUser = function(userid) {
-  return new Promise(function(resolve, reject) {
+exports.viewChatWithUser = function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
   "conversation" : "Hey. How are you?",
@@ -292,8 +292,8 @@ exports.viewChatWithUser = function(userid) {
  * tripid Integer Specific and unique id for each trip.
  * returns List
  **/
-exports.viewTrip = function(userid,tripid) {
-  return new Promise(function(resolve, reject) {
+exports.viewTrip = function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = [ {
   "StartDest" : "Patra - Athina",
