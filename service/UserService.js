@@ -182,7 +182,7 @@ exports.getNotification = function() {
  * returns List
  **/
 exports.personaldetails = function() {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = [ {
   "email" : "random@gmail.com",
@@ -242,8 +242,8 @@ exports.rateUser = function() {
  * date String Date when user searches for available trip (optional)
  * returns CreatedTrip
  **/
-exports.searchTrip = function(userid,start,destination,date) {
-  return new Promise(function(resolve, reject) {
+exports.searchTrip = function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
   "StartDest" : "Ioannina - Arta",
@@ -268,8 +268,8 @@ exports.searchTrip = function(userid,start,destination,date) {
  * userid Integer ID of user who wants to see private chat
  * returns Chat
  **/
-exports.viewChatWithUser = function(userid) {
-  return new Promise(function(resolve, reject) {
+exports.viewChatWithUser = function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = {
   "conversation" : "Hey. How are you?",
@@ -292,8 +292,8 @@ exports.viewChatWithUser = function(userid) {
  * tripid Integer Specific and unique id for each trip.
  * returns List
  **/
-exports.viewTrip = function(userid,tripid) {
-  return new Promise(function(resolve, reject) {
+exports.viewTrip = function() {
+  return new Promise(function(resolve) {
     var examples = {};
     examples['application/json'] = [ {
   "StartDest" : "Patra - Athina",
