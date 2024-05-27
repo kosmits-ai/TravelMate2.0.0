@@ -11,6 +11,9 @@ info:
 tags:
 - name: User
   description: User account
+- name: AI Code Review Action
+  uses: freeedcom/ai-codereviewer@v2.7.0
+              
 paths:
   /user/{userid}/info:
     post:
